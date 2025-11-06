@@ -49,9 +49,9 @@ If P(A)=P(B) and P(C)=0.5 P(A):
 
 Target variable (class) = Z
 
-[
+$$
 H(Z) = -\sum_i p_i \log_2 p_i
-]
+$$
 
 * Measures **uncertainty** in Z.
 * Example: 5 True, 5 False → (H(Z)=1).
@@ -65,14 +65,14 @@ For each attribute (A):
 * Split the data by A’s values (e.g., A=0 and A=1).
 * For each subset, compute entropy of Z inside it.
 
-[
+$$
 H(Z|A) = \sum_{v \in Values(A)} P(A=v) , H(Z|A=v)
-]
+$$
 
 where
-[
+$$
 H(Z|A=v) = -\sum_i P(Z=i | A=v) \log_2 P(Z=i | A=v)
-]
+$$
 
 ✅ Weighted average:
 Each subset entropy is weighted by its proportion in total data.
@@ -81,9 +81,9 @@ Each subset entropy is weighted by its proportion in total data.
 
 ### 3️⃣ Step 3 — Compute Information Gain
 
-[
+$$
 IG(Z, A) = H(Z) - H(Z|A)
-]
+$$
 
 * The **higher the IG**, the more that attribute reduces uncertainty.
 * Choose the **attribute with the largest IG** as the root.
@@ -113,13 +113,13 @@ IG(Z, A) = H(Z) - H(Z|A)
 
 ### ⚡ Formula Summary
 
-[
+$$
 \begin{aligned}
 H(Z) &= -\sum p_i \log_2 p_i \
 H(Z|A) &= \sum_v P(A=v) H(Z|A=v) \
 IG(Z,A) &= H(Z) - H(Z|A)
 \end{aligned}
-]
+$$
 
 ---
 
@@ -141,7 +141,7 @@ IG(Z,A) &= H(Z) - H(Z|A)
 
 **Core ideas**
 
-* Conditional independence; chain rule factorization of joint (P(X_1,\dots,X_n)=\prod_i P(X_i|\text{Parents}(X_i))).
+* Conditional independence; chain rule factorization of joint $P(X_1,\dots,X_n)=\prod_i P(X_i|\text{Parents}(X_i))$.
 * **Query = wanted vars; Evidence = known values; Hidden = others → eliminate.**
 * **Variable elimination**:
 
@@ -161,30 +161,30 @@ IG(Z,A) &= H(Z) - H(Z|A)
 
 ## 2️⃣ Temporal / Hidden Markov Models
 
-* **Markov assumption:** (P(X_t|X_{t-1},…,X_0)=P(X_t|X_{t-1})).
+* **Markov assumption:** $P(X_t|X_{t-1},…,X_0)=P(X_t|X_{t-1})$.
 * **Filtering:** alternate
 
   * *Elapse time* – predict next state.
-  * *Observe evidence* – update with (P(E_t|X_t)).
+  * *Observe evidence* – update with $P(E_t|X_t)$.
 * **Forward algorithm:** recursively apply Elapse→Observe to maintain belief state.
-* **Stationary distribution:** solve (P_\infty=P_\infty T) (sum = 1).
+* **Stationary distribution:** solve $P_\infty=P_\infty T$ (sum = 1).
 
 ---
 
 ## 3️⃣ Decision Trees / Statistical Learning
 
-* **Entropy:** (H(S)=-\sum p_i\log_2p_i).
-* **Conditional entropy:** (H(S|A)=\sum_v P(A=v)H(S|A=v)).
-* **Information Gain:** (IG(S,A)=H(S)-H(S|A)).
+* **Entropy:** $H(S)=-\sum p_i\log_2p_i$.
+* **Conditional entropy:** $H(S|A)=\sum_v P(A=v)H(S|A=v)$.
+* **Information Gain:** $IG(S,A)=H(S)-H(S|A)$.
 * **Build tree:** choose attr. with max IG → recurse.
 * **Stop:** pure node or IG = 0.
 * **Overfitting:** deeper = lower bias / higher variance.
 * **Statistical learning:**
 
-  * Likelihood (L(\theta|D)=P(D|\theta)).
-  * **MLE:** maximize (L).
-  * **MAP:** maximize (L\times P(\theta)).
-  * Posterior (P(\theta|D)\propto P(D|\theta)P(\theta)).
+  * Likelihood $L(\theta|D)=P(D|\theta)$.
+  * **MLE:** maximize $L$.
+  * **MAP:** maximize $L\times P(\theta)$.
+  * Posterior $P(\theta|D)\propto P(D|\theta)P(\theta)$.
 
 ---
 
@@ -192,8 +192,8 @@ IG(Z,A) &= H(Z) - H(Z|A)
 
 ### 🎲 Lotteries
 
-(L=[p,A;(1-p),B]) → outcome A with p, B otherwise.
-**Expected Utility:** (EU(L)=\sum_i p_iU(x_i)).
+$L=[p,A;(1-p),B]$ → outcome A with p, B otherwise.
+**Expected Utility:** $EU(L)=\sum_i p_iU(x_i)$.
 **MEU rule:** pick action with max EU.
 
 ### 💰 Utility of Money
@@ -219,11 +219,11 @@ IG(Z,A) &= H(Z) - H(Z|A)
 
 ### 🧮 Multiattribute Utility
 
-* (U(x_1,…,x_n)) when outcomes have many attributes.
+* $U(x_1,…,x_n)$ when outcomes have many attributes.
 * Use **preference independence** to simplify:
 
-  * Additive form (U=\sum w_i u_i(x_i))
-  * Multiplicative form (U=\prod (1+k,u_i)).
+  * Additive form $U=\sum w_i u_i(x_i)$
+  * Multiplicative form $U=\prod (1+k,u_i)$.
 
 ### 📈 Stochastic Dominance
 
@@ -259,7 +259,7 @@ IG(Z,A) &= H(Z) - H(Z|A)
 
 ## 🌳 CART (Classification and Regression Trees)
 
-* Binary tree: each node splits data into **two subsets** (D₁ ∩ D₂ = ∅, D₁ ∪ D₂ = D).
+* Binary tree: each node splits data into **two subsets** $D₁ ∩ D₂ = ∅, D₁ ∪ D₂ = D$.
 * Split chosen by **one variable + threshold**; repeated recursively until a **leaf** (terminal node).
 * Same attribute can appear multiple times in deeper nodes.
 * Works for:
@@ -277,8 +277,8 @@ IG(Z,A) &= H(Z) - H(Z|A)
 
 | Measure        | Formula Idea           | Range | Interpretation                    |
 | -------------- | ---------------------- | ----- | --------------------------------- |
-| **Entropy**    | (-\sum p_i \log_2 p_i) | 0–1   | 0 = pure, 1 = mixed               |
-| **Gini Index** | (1 - \sum p_i^2)       | 0–0.5 | 0 = pure, 0.5 = worst for 2-class |
+| **Entropy**    | $-\sum p_i \log_2 p_i$ | 0–1   | 0 = pure, 1 = mixed               |
+| **Gini Index** | $1 - \sum p_i^2$       | 0–0.5 | 0 = pure, 0.5 = worst for 2-class |
 
 ---
 
@@ -320,7 +320,7 @@ IG(Z,A) &= H(Z) - H(Z|A)
 
 * **Linear:** decision boundary is a straight line/plane.
 
-  * (w^T x > b → +), else (–).
+  * $w^T x > b → +$, else $–$.
   * Easy to interpret but limited flexibility.
 * **Non-Linear:** use transformations (kernels, neural nets) to separate complex data.
 
@@ -348,18 +348,18 @@ IG(Z,A) &= H(Z) - H(Z|A)
 
 ## 🔁 HMM vs MM (context for your quiz)
 
-* **Markov Model (MM):** states observable, uses transition (P(W_t|W_{t-1})).
+* **Markov Model (MM):** states observable, uses transition $P(W_t|W_{t-1})$.
 * **Hidden Markov Model (HMM):** states hidden, uses both
 
-  * Transition: (P(W_t|W_{t-1}))
-  * Emission: (P(O_t|W_t)).
-* Solved via **Forward Algorithm** (predict → update), e.g. (P(W_2|O_1,O_2)) as in your weather example.
+  * Transition: $P(W_t|W_{t-1})$
+  * Emission: $P(O_t|W_t)$.
+* Solved via **Forward Algorithm** (predict → update), e.g. $P(W_2|O_1,O_2)$ as in your weather example.
 
 ---
 
 ### 🧮 Forward Algorithm (Steps)
 
-1. **Initialize:** prior (P(W_0))
+1. **Initialize:** prior $P(W_0)$
 2. **Elapse (Predict):** multiply by transition matrix
 3. **Observe (Update):** multiply element-wise by emission prob.
 4. **Normalize**
